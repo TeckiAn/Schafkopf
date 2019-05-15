@@ -86,6 +86,12 @@ function eachGame() {
   let pixelsPerFrame;
   let xanimation
 
+  // cards of the other players
+  let cardPlayer1;
+  let cardPlayer2;
+  let cardPlayer3;
+  let animatedCard = false;
+  let playedMovingCard;
 
 
   //Fisher Yates Algorythm to shuffle the cards
@@ -263,6 +269,9 @@ function eachGame() {
     card6: yourHandSauspielName[5],
     card7: yourHandSauspielName[6],
     card8: yourHandSauspielName[7],
+    card9: handPlayer1OnlyName[0],
+    card10: handPlayer2OnlyName[0],
+    card11: handPlayer3OnlyName[0],
     reichsmark: "images/Reichsmark.jpg"
     };
   //sort for Wenz
@@ -276,6 +285,9 @@ function eachGame() {
     card6: yourHandWenzName[5],
     card7: yourHandWenzName[6],
     card8: yourHandWenzName[7],
+    card9: handPlayer1OnlyName[0],
+    card10: handPlayer2OnlyName[0],
+    card11: handPlayer3OnlyName[0],
     reichsmark: "images/Reichsmark.jpg"
     };
       //sort for Eichelsolo
@@ -289,6 +301,9 @@ function eachGame() {
     card6: yourHandEichelsoloName[5],
     card7: yourHandEichelsoloName[6],
     card8: yourHandEichelsoloName[7],
+    card9: handPlayer1OnlyName[0],
+    card10: handPlayer2OnlyName[0],
+    card11: handPlayer3OnlyName[0],
     reichsmark: "images/Reichsmark.jpg"
   }
   //sort for Laubsolo
@@ -302,6 +317,9 @@ function eachGame() {
   card6: yourHandLaubsoloName[5],
   card7: yourHandLaubsoloName[6],
   card8: yourHandLaubsoloName[7],
+  card9: handPlayer1OnlyName[0],
+  card10: handPlayer2OnlyName[0],
+  card11: handPlayer3OnlyName[0],
   reichsmark: "images/Reichsmark.jpg"
   }
   //sort for Herzsolo
@@ -315,6 +333,9 @@ function eachGame() {
   card6: yourHandHerzsoloName[5],
   card7: yourHandHerzsoloName[6],
   card8: yourHandHerzsoloName[7],
+  card9: handPlayer1OnlyName[0],
+  card10: handPlayer2OnlyName[0],
+  card11: handPlayer3OnlyName[0],
   reichsmark: "images/Reichsmark.jpg"
   }
   //sort for Schellensolo
@@ -328,6 +349,9 @@ function eachGame() {
   card6: yourHandSchellensoloName[5],
   card7: yourHandSchellensoloName[6],
   card8: yourHandSchellensoloName[7],
+  card9: handPlayer1OnlyName[0],
+  card10: handPlayer2OnlyName[0],
+  card11: handPlayer3OnlyName[0],
   reichsmark: "images/Reichsmark.jpg"
   }
   //sort for Player1
@@ -424,6 +448,12 @@ function eachGame() {
     y: 290,
     width: 130,
     height:90
+  };
+  const rectOKNewGame = {
+    x: 300,
+    y: 350,
+    width: 130,
+    height: 90
   };
   let rectCard1 = {
     x: 0,
@@ -1640,8 +1670,9 @@ function eachGame() {
       if (pickCard1 === false || pickCard2 === false ||pickCard3 === false ||
           pickCard4 === false ||pickCard5 === false ||pickCard6 === false ||
           pickCard7 === false ||pickCard8 === false) {
-        function drawCardsPlayerOne () {
+
           setTimeout (function () {
+              cardPlayer1 = true;
               ctx.save();
               let img1 = new Image();
               img1.addEventListener("load", function () {
@@ -1649,18 +1680,19 @@ function eachGame() {
               }, false);
               img1.src = handPlayer1OnlyName[0];
           }, 1000);
-        }
-        function drawCardsPlayerTwo () {
+
+
           setTimeout (function () {
+            cardPlayer2 = true;
             let img2 = new Image();
             img2.addEventListener("load", function () {
               ctx.drawImage(img2, 300, 100, 180, 230);
             }, false);
             img2.src = handPlayer2OnlyName[0];
           }, 2000);
-        }
-        function drawCardsPlayerThree () {
+
           setTimeout (function () {
+            cardPlayer3 = true;
             let img3 = new Image();
             img3.addEventListener("load", function () {
               ctx.drawImage(img3, 480, 250, 180, 230);
@@ -1668,28 +1700,6 @@ function eachGame() {
             img3.src = handPlayer3OnlyName[0];
             ctx.restore();
           }, 3000);
-        } if (maxChampionName == "willPlayer1Win") {
-          drawCardsPlayerOne();
-          drawCardsPlayerTwo();
-          drawCardsPlayerThree();
-
-        } if (maxChampionName == "willPlayer2Win") {
-          drawCardsPlayerTwo(function () {
-            drawCardsPlayerThree(function () {
-              drawCardsPlayerOne ();
-            });
-          });
-
-        } if (maxChampionName == "willPlayer3Win") {
-
-          drawCardsPlayerThree();
-        } if (maxChampionName == "willPlayer4Win") {
-          drawCardsPlayerTwo(function () {
-            drawCardsPlayerThree(function () {
-              drawCardsPlayerOne ();
-            });
-          });
-        }
       }
     }
     //add the eventListener to start the game
@@ -1705,12 +1715,21 @@ function eachGame() {
 
       // pick each card
       // function for the cards of the other players
+/*
       function cardsOfOtherPlayers () {
+        loadImages(whichSourceToLoad, function(images) {
+        ctx.save();
+        ctx.drawImage(images.card9, 120, 250, 180, 230);
+        ctx.restore();
+        });
+      }
+
         ctx.save();
         let img1 = new Image();
         img1.addEventListener("load", function () {
           ctx.drawImage(img1, 120, 250, 180, 230);
         }, false);
+        ctx.restore();
         img1.src = handPlayer1OnlyName[0];
         let img2 = new Image();
         img2.addEventListener("load", function () {
@@ -1723,7 +1742,7 @@ function eachGame() {
         }, false);
         img3.src = handPlayer3OnlyName[0];
         ctx.restore();
-      }
+      }*/
 
 
       //function to delete Cards from array and canvas
@@ -1754,90 +1773,208 @@ function eachGame() {
               ctx.translate(0,700);
               ctx.drawImage(images.card1, 0, 0, 180, 230);
               ctx.restore();
-            }
+            } else if (playedMovingCard === "card1") {
+                playedMovingCard = images.card1
+              }
             if(pickCard2 === false) {
               ctx.save();
               ctx.translate(87,700);
               ctx.drawImage(images.card2, 0, 0, 180, 230);
               ctx.restore();
-            }
+            } else if (playedMovingCard === "card2") {
+                playedMovingCard = images.card2
+              }
             if(pickCard3 === false) {
               ctx.save();
               ctx.translate(174,700);
               ctx.drawImage(images.card3, 0, 0, 180, 230);
               ctx.restore();
-            }
+            } else if (playedMovingCard === "card3") {
+                playedMovingCard = images.card3
+              }
             if(pickCard4 === false) {
               ctx.save();
               ctx.translate(261,700);
               ctx.drawImage(images.card4, 0, 0, 180, 230);
               ctx.restore();
-            }
+            } else if (playedMovingCard === "card4") {
+                playedMovingCard = images.card4
+              }
             if(pickCard5 === false) {
               ctx.save();
               ctx.translate(348,700);
               ctx.drawImage(images.card5, 0, 0, 180, 230);
               ctx.restore();
-            }
+            } else if (playedMovingCard === "card5") {
+                playedMovingCard = images.card5
+              }
             if(pickCard6 === false) {
               ctx.save();
               ctx.translate(435,700);
               ctx.drawImage(images.card6, 0, 0, 180, 230);
               ctx.restore();
-            }
+            } else if (playedMovingCard === "card6") {
+                playedMovingCard = images.card6
+              }
             if(pickCard7 === false) {
               ctx.save();
               ctx.translate(522,700);
               ctx.drawImage(images.card7, 0, 0, 180, 230);
               ctx.restore();
-            }
+            } else if (playedMovingCard === "card7") {
+                playedMovingCard = images.card7
+              }
             if(pickCard8 === false) {
               ctx.save();
               ctx.translate(609,700);
               ctx.drawImage(images.card8, 0, 0, 180, 230);
               ctx.restore();
+            } else if (playedMovingCard === "card8") {
+                playedMovingCard = images.card8
+              }
+            if(cardPlayer1 === true) {
+              ctx.save();
+              ctx.drawImage(images.card9, 120, 250, 180, 230);
+            }
+            if(cardPlayer2 === true) {
+              ctx.save();
+              ctx.drawImage(images.card10, 300, 100, 180, 230);
+            }
+            if(cardPlayer3 === true) {
+              ctx.save();
+              ctx.drawImage(images.card11, 480, 250, 180, 230);
+            }
+            if(animatedCard === true) {
+              ctx.save();
+              ctx.drawImage(playedMovingCard, posX, posY, 180, 230);
             }
             ctx.restore();
+
+
         });
-      } else {
-        loadImages(whichSourceToLoad, function(images) {
-          ctx.save();
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(images.background, 0, 0, canvas.width,canvas.height*0.8);
+      } //to finish the game
+      else if (pickCard1 === true && pickCard2 === true && pickCard3 === true &&
+        pickCard4 === true && pickCard5 === true && pickCard6 === true &&
+        pickCard7 === true && pickCard8 === true) {
           setTimeout (function () {
-            ctx.fillText("Game is Over",100,250);
-            ctx.translate(0,100);
-            const endResultAllPlayers = [gameValuePlayer1, gameValuePlayer2, gameValuePlayer3, gameValuePlayer4]
-            const maxResultAllPlayers = Math.max.apply(Math.max, endResultAllPlayers);
-            const namesOfChampions = ["gameValuePlayer1", "gameValuePlayer2", "gameValuePlayer3", "gameValuePlayer4"];
-            let nameOfChampion = namesOfChampions[endResultAllPlayers.indexOf(maxResultAllPlayers)];
-            if (nameOfChampion === "gameValuePlayer1") {
-              ctx.fillText("Player 1 is the Winner",100,250);
-            }
-            if (nameOfChampion === "gameValuePlayer2") {
-              ctx.fillText("Player 2 is the Winner",100,250);
-            }
-            if (nameOfChampion === "gameValuePlayer3") {
-              ctx.fillText("Player 3 is the Winner",100,250);
-            }
-            if (nameOfChampion === "gameValuePlayer4") {
-              ctx.fillText("Player 4 is the Winner",100,250);
-            }
-            ctx.restore();
+          loadImages(whichSourceToLoad, function(images) {
+            ctx.save();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(images.background, 0, 0, canvas.width,canvas.height*0.8);
             setTimeout (function () {
-              eachGame()
+              ctx.fillText("Game is Over",100,250);
+              ctx.translate(0,100);
+              const endResultAllPlayers = [gameValuePlayer1, gameValuePlayer2, gameValuePlayer3, gameValuePlayer4]
+              const maxResultAllPlayers = Math.max.apply(Math.max, endResultAllPlayers);
+              const namesOfChampions = ["gameValuePlayer1", "gameValuePlayer2", "gameValuePlayer3", "gameValuePlayer4"];
+              let nameOfChampion = namesOfChampions[endResultAllPlayers.indexOf(maxResultAllPlayers)];
+              if (nameOfChampion === "gameValuePlayer1") {
+                ctx.fillText("Player 1 is the Winner",100,250);
+                ctx.fillText("OK",300,350)
+                canvas.addEventListener('click',function (event) {
+                  const mousePos = getMousePos(canvas, event);
+                  if (isInside(mousePos,rectOKNewGame)) {
+                    eachGame();
+                  }
+                });
+              }
+              if (nameOfChampion === "gameValuePlayer2") {
+                ctx.fillText("Player 2 is the Winner",100,250);
+                ctx.fillText("OK",300,350)
+                canvas.addEventListener('click',function (event) {
+                  const mousePos = getMousePos(canvas, event);
+                  if (isInside(mousePos,rectOKNewGame)) {
+                    eachGame();
+                  }
+                });
+              }
+              if (nameOfChampion === "gameValuePlayer3") {
+                ctx.fillText("Player 3 is the Winner",100,250);
+                ctx.fillText("OK",300,350)
+                canvas.addEventListener('click',function (event) {
+                  const mousePos = getMousePos(canvas, event);
+                  if (isInside(mousePos,rectOKNewGame)) {
+                    eachGame();
+                  }
+                });
+              }
+              if (nameOfChampion === "gameValuePlayer4") {
+                ctx.fillText("Player 4 is the Winner",100,250);
+                ctx.fillText("OK",300,350)
+
+              }
+              ctx.restore();
+              setTimeout (function () {
+                canvas.addEventListener('click',function (event) {
+                  const mousePos = getMousePos(canvas, event);
+                  if (isInside(mousePos,rectOKNewGame)) {
+                    // games for player4
+                    Sauspiel = false;
+                    Wenz = false;
+                    Eichel = false;
+                    Laub = false;
+                    Herz = false;
+                    Schellen = false;
+                    Schieben = false;
+                    schellensolo = false;
+                    // decission for Player 4 to play
+                    decideSauspielPlayer4 = false;
+                    decideWenzPlayer4 = false;
+                    decideEichelsoloPlayer4 = false;
+                    decideLaubsoloPlayer4 = false;
+                    decideHerzsoloPlayer4 = false;
+                    decideSchellensoloPlayer4 = false;
+                    // Decide who wants Sauspiel
+                    player1WantsToPlaySauspiel = false;
+                    player2WantsToPlaySauspiel = false;
+                    player3WantsToPlaySauspiel = false;
+                    player4WantsToPlaySauspiel = false;
+
+                    // decide if computer will play
+                    decideSauspielPlayer = 0;
+                    SauspielPlayer = false;
+                    decideWenzPlayer = 0;
+                    WenzPlayer = false;
+                    decideEichelsoloPlayer = 0;
+                    eichelsoloPlayer = false;
+                    decideLaubsoloPlayer = 0;
+                    laubsoloPlayer = false;
+                    decideHerzsoloPlayer = 0;
+                    herzsoloPlayer = false;
+                    decideSchellensoloPlayer = 0;
+                    schellensoloPlayer = false;
+                    //pick your choosen card
+                    pickCard1 = false;
+                    pickCard2 = false;
+                    pickCard3 = false;
+                    pickCard4 = false;
+                    pickCard5 = false;
+                    pickCard6 = false;
+                    pickCard7 = false;
+                    pickCard8 = false;
+                    // amount of cardvalue of each player
+                    player1Value = 0;
+                    player2Value = 0;
+                    player3Value = 0;
+                    player4Value = 0;
+                    // count the value of each player
+                    gameValuePlayer1 = 0;
+                    gameValuePlayer2 = 0;
+                    gameValuePlayer3 = 0;
+                    gameValuePlayer4 = 0;
+                    eachGame();
+                  }
+                });
+              }, 2000);
+
+
+
             }, 2000);
-          }, 2000);
-        });
+          });
+        }, 2000);
+
       }
     }
-    function doStuffOnlyWhen(arg1, arg2) {
-     if (arg1 == 8) {
-      console.log(arg1 - arg2);
-    }}
-    doStuffOnlyWhen(8,2);
-    //BUT NOT WHEN
-    doStuffOnlyWhen(8,7);
 
 
 
@@ -2038,27 +2175,44 @@ function eachGame() {
       function animate() {
       requestID = requestAnimationFrame(animate);
       if (posY >= 470) {
+        animatedCard = true;
         posY -= 5.5;
         posX += xanimation;
         currentGame();
+/*
+        loadImages(whichSourceToLoad, function(images) {
+          ctx.save();
+          ctx.drawImage(images.card1, posX, posY, 180, 230);
+        });
 
         let img1 = new Image();
         img1.addEventListener("load", function () {
           ctx.drawImage(img1, posX, posY, 180, 230);
         }, false);
         img1.src = yourPlayedCard;
-
-        cardsOfOtherPlayers ();
+ */
+        //cardsOfOtherPlayers ();
         } else {
             cancelAnimationFrame(requestID);
+            cardPlayer1 = false;
+            cardPlayer2 = false;
+            cardPlayer3 = false;
+            animatedCard = false;
+
             countCardValue ();
             firstCardCounts("willPlayer1Win", handPlayer1OnlyName[0]);
             firstCardCounts("willPlayer2Win", handPlayer2OnlyName[0]);
             firstCardCounts("willPlayer3Win", handPlayer3OnlyName[0]);
             firstCardCounts("willPlayer4Win", yourPlayedCard);
             deletePlayedCards();
+            console.log(handPlayer1OnlyName);
+            console.log(handPlayer1OnlyName[0]);
+            if (pickCard1 === false || pickCard2 === false ||pickCard3 === false ||
+              pickCard4 === false ||pickCard5 === false ||pickCard6 === false ||
+              pickCard7 === false ||pickCard8 === false) {
             currentGame();
             cardsOfOtherPlayersNewRound();
+            }
           }
         }
 
@@ -2073,6 +2227,7 @@ function eachGame() {
           posY = 700;
           xanimation = 7;
           pickCard1 = true;
+          playedMovingCard = "card1";
           yourPlayedCard = whichSourceToLoad.card1;
           round++;
           animate();
@@ -2088,6 +2243,7 @@ function eachGame() {
           pixelsPerFrame = 5.5;
           pickCard2 = true;
           rectCard1.width = 174;
+          playedMovingCard = "card2";
           yourPlayedCard = whichSourceToLoad.card2;
           round++
           animate();
@@ -2103,6 +2259,7 @@ function eachGame() {
           pixelsPerFrame = 5.5;
           pickCard3 = true;
           rectCard2.width = 174;
+          playedMovingCard = "card3";
           yourPlayedCard = whichSourceToLoad.card3;
           round++
           animate();
@@ -2118,6 +2275,7 @@ function eachGame() {
           pixelsPerFrame = 5.5;
           pickCard4 = true;
           rectCard3.width = 174;
+          playedMovingCard = "card4";
           yourPlayedCard = whichSourceToLoad.card4;
           round++
           animate();
@@ -2133,6 +2291,7 @@ function eachGame() {
           pixelsPerFrame = 5.5;
           pickCard5 = true;
           rectCard4.width = 174;
+          playedMovingCard = "card5";
           yourPlayedCard = whichSourceToLoad.card5;
           round++
           animate();
@@ -2148,6 +2307,7 @@ function eachGame() {
           pixelsPerFrame = 5.5;
           pickCard6 = true;
           rectCard5.width = 174;
+          playedMovingCard = "card6";
           yourPlayedCard = whichSourceToLoad.card6;
           round++
           animate();
@@ -2162,6 +2322,7 @@ function eachGame() {
           xanimation = -5.2;
           pixelsPerFrame = 5.5;
           pickCard7 = true;
+          playedMovingCard = "card7";
           yourPlayedCard = whichSourceToLoad.card7;
           rectCard6.width = 174;
           round++
@@ -2181,6 +2342,7 @@ function eachGame() {
           pixelsPerFrame = 5.5;
           pickCard8 = true;
           rectCard7.width = 174;
+          playedMovingCard = "card8";
           yourPlayedCard = whichSourceToLoad.card8;
           round++
           animate();
